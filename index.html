@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>İva ❤️</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial,sans-serif;
+}
+
+body{
+overflow:hidden;
+background:linear-gradient(135deg,#ff6fa5,#ffb6d9,#ffd6ea);
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+color:white;
+text-align:center;
+}
+
+.card{
+background:rgba(255,255,255,.15);
+backdrop-filter:blur(10px);
+padding:40px;
+border-radius:25px;
+box-shadow:0 0 30px rgba(255,255,255,.4);
+max-width:700px;
+z-index:5;
+}
+
+h1{
+font-size:55px;
+animation:pulse 2s infinite;
+}
+
+p{
+margin-top:15px;
+font-size:20px;
+line-height:1.8;
+}
+
+button{
+margin-top:30px;
+padding:15px 35px;
+font-size:20px;
+border:none;
+border-radius:40px;
+background:#ff2f7d;
+color:white;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+transform:scale(1.1);
+background:#ff0d67;
+}
+
+#message{
+display:none;
+margin-top:25px;
+font-size:24px;
+font-weight:bold;
+color:#fff7fb;
+}
+
+.heart{
+position:absolute;
+top:-50px;
+font-size:30px;
+animation:fall linear forwards;
+}
+
+@keyframes fall{
+to{
+transform:translateY(110vh) rotate(360deg);
+opacity:0;
+}
+}
+
+@keyframes pulse{
+50%{
+transform:scale(1.08);
+}
+}
+</style>
+
+</head>
+<body>
+
+<div class="card">
+
+<h1>💖 İva 💖</h1>
+
+<p>
+
+Senin gülüşün en karanlık günü bile aydınlatabilecek kadar güzel.<br><br>
+
+Hayat bazen zor olabilir ama sen yanımdayken her şey daha kolay geliyor.<br><br>
+
+Seninle geçen her an benim için bir hazine.<br><br>
+
+Umarım birlikte daha nice güzel anılar biriktiririz. ❤️
+
+</p>
+
+<button onclick="mesaj()">
+💌 Özel Mesaj
+</button>
+
+<div id="message">
+Canım Kürdistanım, seni çooook seviyorum. ❤️🥹
+</div>
+
+<br><br>
+
+<h2>🌹 Seni Her Şeyden Çok Seviyorum 🌹</h2>
+
+<p>
+
+❤️ Sen benim en güzel tesadüfümsün.<br>
+❤️ Gülüşün dünyama mutluluk katıyor.<br>
+❤️ Yanımda olman bana güç veriyor.<br>
+❤️ Seninle yaşlanmak isterim.<br>
+❤️ İyi ki varsın İva...
+
+</p>
+
+<br>
+
+<h2>💞 Sonsuza Kadar ❤️</h2>
+
+</div>
+
+<script>
+
+function mesaj(){
+document.getElementById("message").style.display="block";
+}
+
+function kalp(){
+
+const h=document.createElement("div");
+
+h.className="heart";
+
+h.innerHTML=["❤️","💖","💕","💗","💓"][Math.floor(Math.random()*5)];
+
+h.style.left=Math.random()*100+"vw";
+
+h.style.animationDuration=(Math.random()*3+3)+"s";
+
+h.style.fontSize=(Math.random()*25+20)+"px";
+
+document.body.appendChild(h);
+
+setTimeout(()=>{
+h.remove();
+},7000);
+
+}
+
+setInterval(kalp,250);
+
+</script>
+
+</body>
+</html>
