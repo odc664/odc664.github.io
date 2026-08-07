@@ -1,174 +1,267 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>İva ❤️</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İva ❤️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
+        body {
+            background: #000;
+            overflow: hidden;
+            height: 100vh;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            color: white;
+        }
 
-body{
-overflow:hidden;
-background:linear-gradient(135deg,#ff6fa5,#ffb6d9,#ffd6ea);
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-color:white;
-text-align:center;
-}
+        /* Canvas Heart */
+        #heartCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 50;
+            background: #000;
+            transition: opacity 1.8s ease;
+        }
 
-.card{
-background:rgba(255,255,255,.15);
-backdrop-filter:blur(10px);
-padding:40px;
-border-radius:25px;
-box-shadow:0 0 30px rgba(255,255,255,.4);
-max-width:700px;
-z-index:5;
-}
+        #heartCanvas.hide {
+            opacity: 0;
+            pointer-events: none;
+        }
 
-h1{
-font-size:55px;
-animation:pulse 2s infinite;
-}
+        /* Background */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background: url('1786092210128.jpg') center/cover no-repeat;
+            filter: brightness(0.32) contrast(1.25);
+            z-index: -3;
+            transform: scale(1.18);
+            animation: bgZoom 28s ease-in-out infinite alternate;
+        }
 
-p{
-margin-top:15px;
-font-size:20px;
-line-height:1.8;
-}
+        @keyframes bgZoom {
+            from { transform: scale(1.18); }
+            to { transform: scale(1.06); }
+        }
 
-button{
-margin-top:30px;
-padding:15px 35px;
-font-size:20px;
-border:none;
-border-radius:40px;
-background:#ff2f7d;
-color:white;
-cursor:pointer;
-transition:.3s;
-}
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at 50% 35%, rgba(0,0,0,0.15), rgba(0,0,0,0.88));
+            z-index: -2;
+        }
 
-button:hover{
-transform:scale(1.1);
-background:#ff0d67;
-}
+        /* Main Content */
+        .main {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            opacity: 0;
+            transition: opacity 2s ease;
+            z-index: 10;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
 
-#message{
-display:none;
-margin-top:25px;
-font-size:24px;
-font-weight:bold;
-color:#fff7fb;
-}
+        .main.show {
+            opacity: 1;
+        }
 
-.heart{
-position:absolute;
-top:-50px;
-font-size:30px;
-animation:fall linear forwards;
-}
+        h1 {
+            font-size: 4.6rem;
+            font-weight: 200;
+            letter-spacing: 14px;
+            margin-bottom: 15px;
+            text-shadow: 0 0 45px rgba(255, 90, 150, 0.7);
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1.7s ease 0.5s;
+        }
 
-@keyframes fall{
-to{
-transform:translateY(110vh) rotate(360deg);
-opacity:0;
-}
-}
+        .main.show h1 {
+            opacity: 1;
+            transform: translateY(0);
+        }
 
-@keyframes pulse{
-50%{
-transform:scale(1.08);
-}
-}
-</style>
+        .line {
+            width: 100px;
+            height: 1.5px;
+            background: linear-gradient(to right, transparent, rgba(255,255,255,0.75), transparent);
+            margin-bottom: 40px;
+            transform: scaleX(0);
+            transition: transform 1.5s ease 1.3s;
+        }
 
+        .main.show .line {
+            transform: scaleX(1);
+        }
+
+        .messages {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .msg {
+            font-size: 1.35rem;
+            font-weight: 300;
+            line-height: 1.7;
+            letter-spacing: 1px;
+            text-shadow: 0 4px 20px rgba(0,0,0,0.95);
+            opacity: 0;
+            transform: translateY(25px);
+            transition: all 1.4s ease;
+        }
+
+        .main.show .msg:nth-child(1) { transition-delay: 1.9s; opacity: 1; transform: translateY(0); }
+        .main.show .msg:nth-child(2) { transition-delay: 2.4s; opacity: 1; transform: translateY(0); }
+        .main.show .msg:nth-child(3) { transition-delay: 2.9s; opacity: 1; transform: translateY(0); }
+        .main.show .msg:nth-child(4) { transition-delay: 3.4s; opacity: 1; transform: translateY(0); }
+        .main.show .msg:nth-child(5) { transition-delay: 3.9s; opacity: 1; transform: translateY(0); }
+
+        /* Particles */
+        .particles {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 5;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            opacity: 0;
+            animation: float linear infinite;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) rotate(0deg) scale(0.4);
+                opacity: 0;
+            }
+            12% { opacity: 0.9; }
+            88% { opacity: 0.55; }
+            100% {
+                transform: translateY(-25vh) rotate(720deg) scale(1.4);
+                opacity: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 3rem; letter-spacing: 7px; }
+            .msg { font-size: 1.15rem; }
+        }
+    </style>
 </head>
 <body>
 
-<div class="card">
+    <canvas id="heartCanvas"></canvas>
 
-<h1>💖 İva 💖</h1>
+    <div class="bg"></div>
+    <div class="overlay"></div>
 
-<p>
+    <div class="main" id="main">
+        <h1>İVA</h1>
+        <div class="line"></div>
+        <div class="messages">
+            <div class="msg">Senin gözlerin benim en güzel yerim.</div>
+            <div class="msg">Her bakışın kalbime ayrı bir melodi gibi geliyor.</div>
+            <div class="msg">Sen yanımdayken dünya daha yavaş, daha güzel dönüyor.</div>
+            <div class="msg">İyi ki varsın...</div>
+            <div class="msg">❤️ Seni çok seviyorum ❤️</div>
+        </div>
+    </div>
 
-Senin gülüşün en karanlık günü bile aydınlatabilecek kadar güzel.<br><br>
+    <div class="particles" id="particles"></div>
 
-Hayat bazen zor olabilir ama sen yanımdayken her şey daha kolay geliyor.<br><br>
+    <script>
+        const canvas = document.getElementById('heartCanvas');
+        const ctx = canvas.getContext('2d');
+        let width, height;
 
-Seninle geçen her an benim için bir hazine.<br><br>
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
 
-Umarım birlikte daha nice güzel anılar biriktiririz. ❤️
+        function heartPoint(t, scale = 1) {
+            const x = 16 * Math.pow(Math.sin(t), 3);
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            return {
+                x: width / 2 + x * scale,
+                y: height / 2 + y * scale
+            };
+        }
 
-</p>
+        let progress = 0;
+        const speed = 0.0042;
 
-<button onclick="mesaj()">
-💌 Özel Mesaj
-</button>
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+            ctx.fillRect(0, 0, width, height);
 
-<div id="message">
-Canım Kürdistanım, seni çooook seviyorum. ❤️🥹
-</div>
+            ctx.strokeStyle = '#5ba3ff';
+            ctx.lineWidth = 1.5;
+            ctx.shadowBlur = 15;
+            ctx.shadowColor = '#5ba3ff';
 
-<br><br>
+            for (let layer = 0; layer < 4; layer++) {
+                const scale = 10.5 + layer * 1.7;
+                ctx.beginPath();
+                for (let t = 0; t < progress * Math.PI * 2; t += 0.018) {
+                    const p = heartPoint(t, scale);
+                    if (t === 0) ctx.moveTo(p.x, p.y);
+                    else ctx.lineTo(p.x, p.y);
+                }
+                ctx.stroke();
+            }
 
-<h2>🌹 Seni Her Şeyden Çok Seviyorum 🌹</h2>
+            progress += speed;
 
-<p>
+            if (progress < 1.35) {
+                requestAnimationFrame(draw);
+            } else {
+                setTimeout(() => {
+                    canvas.classList.add('hide');
+                    document.getElementById('main').classList.add('show');
+                    startParticles();
+                }, 900);
+            }
+        }
 
-❤️ Sen benim en güzel tesadüfümsün.<br>
-❤️ Gülüşün dünyama mutluluk katıyor.<br>
-❤️ Yanımda olman bana güç veriyor.<br>
-❤️ Seninle yaşlanmak isterim.<br>
-❤️ İyi ki varsın İva...
+        draw();
 
-</p>
+        function startParticles() {
+            const container = document.getElementById('particles');
+            const symbols = ['❤️', '✨', '💕', '💗', '✧', '🌹'];
 
-<br>
-
-<h2>💞 Sonsuza Kadar ❤️</h2>
-
-</div>
-
-<script>
-
-function mesaj(){
-document.getElementById("message").style.display="block";
-}
-
-function kalp(){
-
-const h=document.createElement("div");
-
-h.className="heart";
-
-h.innerHTML=["❤️","💖","💕","💗","💓"][Math.floor(Math.random()*5)];
-
-h.style.left=Math.random()*100+"vw";
-
-h.style.animationDuration=(Math.random()*3+3)+"s";
-
-h.style.fontSize=(Math.random()*25+20)+"px";
-
-document.body.appendChild(h);
-
-setTimeout(()=>{
-h.remove();
-},7000);
-
-}
-
-setInterval(kalp,250);
-
-</script>
-
+            setInterval(() => {
+                const el = document.createElement('div');
+                el.classList.add('particle');
+                el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+                el.style.left = Math.random() * 100 + 'vw';
+                el.style.fontSize = (Math.random() * 22 + 13) + 'px';
+                el.style.animationDuration = (Math.random() * 9 + 11) + 's';
+                el.style.color = `rgba(255, ${120 + Math.random()*80}, ${150 + Math.random()*50}, 0.85)`;
+                container.appendChild(el);
+                setTimeout(() => el.remove(), 20000);
+            }, 180);
+        }
+    </script>
 </body>
 </html>
