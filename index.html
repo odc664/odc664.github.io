@@ -2,33 +2,47 @@
 <html lang="tr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İva ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Gülsüm ❤️</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             background: #000;
-            overflow: hidden;
-            height: 100vh;
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            color: white;
+            color: #fff;
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            overflow-x: hidden;
+            min-height: 100vh;
         }
 
-        /* Canvas Heart */
+        .bg {
+            position: fixed;
+            inset: 0;
+            background: url('IMG_20260820_154912.jpg') center/cover no-repeat;
+            filter: brightness(0.26) contrast(1.25) saturate(1.1);
+            z-index: -10;
+            transform: scale(1.16);
+            animation: slowZoom 40s ease-in-out infinite alternate;
+        }
+
+        @keyframes slowZoom {
+            from { transform: scale(1.16); }
+            to { transform: scale(1.04); }
+        }
+
+        .overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(ellipse at 50% 20%, rgba(30,5,20,0.3) 0%, rgba(0,0,0,0.75) 50%, rgba(0,0,0,0.94) 100%);
+            z-index: -9;
+        }
+
         #heartCanvas {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 50;
+            inset: 0;
+            z-index: 100;
             background: #000;
-            transition: opacity 1.8s ease;
+            transition: opacity 2.2s ease;
         }
 
         #heartCanvas.hide {
@@ -36,161 +50,188 @@
             pointer-events: none;
         }
 
-        /* Background */
-        .bg {
-            position: fixed;
-            inset: 0;
-            background: url('1786092210128.jpg') center/cover no-repeat;
-            filter: brightness(0.32) contrast(1.25);
-            z-index: -3;
-            transform: scale(1.18);
-            animation: bgZoom 28s ease-in-out infinite alternate;
-        }
-
-        @keyframes bgZoom {
-            from { transform: scale(1.18); }
-            to { transform: scale(1.06); }
-        }
-
-        .overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at 50% 35%, rgba(0,0,0,0.15), rgba(0,0,0,0.88));
-            z-index: -2;
-        }
-
-        /* Main Content */
-        .main {
-            position: relative;
-            height: 100vh;
+        .page {
+            min-height: 100vh;
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            padding: 40px 20px 80px;
             text-align: center;
             opacity: 0;
-            transition: opacity 2s ease;
-            z-index: 10;
-            padding: 20px;
-            max-width: 900px;
-            margin: 0 auto;
+            transition: opacity 2.5s ease;
+            position: relative;
+            z-index: 5;
         }
 
-        .main.show {
-            opacity: 1;
-        }
+        .page.show { opacity: 1; }
 
         h1 {
-            font-size: 4.6rem;
+            font-size: clamp(3.2rem, 10vw, 5.5rem);
             font-weight: 200;
-            letter-spacing: 14px;
-            margin-bottom: 15px;
-            text-shadow: 0 0 45px rgba(255, 90, 150, 0.7);
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1.7s ease 0.5s;
+            letter-spacing: 0.18em;
+            margin-bottom: 12px;
+            text-shadow: 0 0 40px rgba(255, 90, 150, 0.55), 0 0 80px rgba(255, 60, 120, 0.25);
         }
 
-        .main.show h1 {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .line {
-            width: 100px;
-            height: 1.5px;
-            background: linear-gradient(to right, transparent, rgba(255,255,255,0.75), transparent);
-            margin-bottom: 40px;
-            transform: scaleX(0);
-            transition: transform 1.5s ease 1.3s;
-        }
-
-        .main.show .line {
-            transform: scaleX(1);
-        }
-
-        .messages {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
-        }
-
-        .msg {
-            font-size: 1.35rem;
+        .tagline {
+            font-size: 1.05rem;
+            letter-spacing: 0.35em;
+            color: rgba(255,255,255,0.65);
+            margin-bottom: 50px;
             font-weight: 300;
-            line-height: 1.7;
-            letter-spacing: 1px;
-            text-shadow: 0 4px 20px rgba(0,0,0,0.95);
+        }
+
+        .message-area {
+            max-width: 740px;
+            min-height: 150px;
+            margin-bottom: 45px;
+            font-size: 1.35rem;
+            line-height: 1.9;
+            font-weight: 300;
+            text-shadow: 0 4px 25px rgba(0,0,0,0.9);
+            transition: all 0.55s ease;
+            padding: 0 12px;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            justify-content: center;
+            max-width: 700px;
+            margin-bottom: 30px;
+        }
+
+        .btn {
+            padding: 13px 26px;
+            border-radius: 50px;
+            border: 1px solid rgba(255,255,255,0.22);
+            background: rgba(255,255,255,0.07);
+            color: #fff;
+            font-size: 0.98rem;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            user-select: none;
+        }
+
+        .btn:hover {
+            background: rgba(255, 100, 150, 0.22);
+            border-color: rgba(255, 130, 170, 0.55);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(255, 70, 130, 0.25);
+        }
+
+        .btn:active { transform: scale(0.96); }
+
+        .btn.special {
+            background: rgba(255, 80, 130, 0.18);
+            border-color: rgba(255, 100, 150, 0.4);
+        }
+
+        .extra-section {
+            max-width: 700px;
+            margin-top: 20px;
             opacity: 0;
             transform: translateY(25px);
-            transition: all 1.4s ease;
+            transition: all 0.8s ease;
+            pointer-events: none;
         }
 
-        .main.show .msg:nth-child(1) { transition-delay: 1.9s; opacity: 1; transform: translateY(0); }
-        .main.show .msg:nth-child(2) { transition-delay: 2.4s; opacity: 1; transform: translateY(0); }
-        .main.show .msg:nth-child(3) { transition-delay: 2.9s; opacity: 1; transform: translateY(0); }
-        .main.show .msg:nth-child(4) { transition-delay: 3.4s; opacity: 1; transform: translateY(0); }
-        .main.show .msg:nth-child(5) { transition-delay: 3.9s; opacity: 1; transform: translateY(0); }
+        .extra-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+            pointer-events: auto;
+        }
 
-        /* Particles */
+        .extra-section p {
+            font-size: 1.2rem;
+            line-height: 1.85;
+            margin-bottom: 18px;
+            color: rgba(255,255,255,0.92);
+        }
+
         .particles {
             position: fixed;
             inset: 0;
             pointer-events: none;
-            z-index: 5;
+            z-index: 4;
             overflow: hidden;
         }
 
         .particle {
             position: absolute;
             opacity: 0;
-            animation: float linear infinite;
+            animation: rise linear infinite;
+            filter: blur(0.4px);
         }
 
-        @keyframes float {
-            0% {
-                transform: translateY(110vh) rotate(0deg) scale(0.4);
-                opacity: 0;
-            }
+        @keyframes rise {
+            0% { transform: translateY(105vh) rotate(0deg) scale(0.5); opacity: 0; }
             12% { opacity: 0.9; }
-            88% { opacity: 0.55; }
-            100% {
-                transform: translateY(-25vh) rotate(720deg) scale(1.4);
-                opacity: 0;
-            }
+            88% { opacity: 0.5; }
+            100% { transform: translateY(-20vh) rotate(720deg) scale(1.45); opacity: 0; }
+        }
+
+        .note {
+            position: fixed;
+            bottom: 18px;
+            left: 0;
+            right: 0;
+            text-align: center;
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            color: rgba(255,255,255,0.25);
+            z-index: 6;
         }
 
         @media (max-width: 600px) {
-            h1 { font-size: 3rem; letter-spacing: 7px; }
-            .msg { font-size: 1.15rem; }
+            .message-area { font-size: 1.18rem; }
+            .btn { padding: 12px 20px; font-size: 0.92rem; }
         }
     </style>
 </head>
 <body>
 
     <canvas id="heartCanvas"></canvas>
-
     <div class="bg"></div>
     <div class="overlay"></div>
 
-    <div class="main" id="main">
-        <h1>İVA</h1>
-        <div class="line"></div>
-        <div class="messages">
-            <div class="msg">Senin gözlerin benim en güzel yerim.</div>
-            <div class="msg">Her bakışın kalbime ayrı bir melodi gibi geliyor.</div>
-            <div class="msg">Sen yanımdayken dünya daha yavaş, daha güzel dönüyor.</div>
-            <div class="msg">İyi ki varsın...</div>
-            <div class="msg">❤️ Seni çok seviyorum ❤️</div>
+    <div class="page" id="page">
+        <h1>GÜLSÜM</h1>
+        <div class="tagline">senin için</div>
+
+        <div class="message-area" id="message">
+            Bazı güzellikler anlatılmaz,<br>
+            sadece hissedilir.
+        </div>
+
+        <div class="btn-group">
+            <button class="btn" onclick="changeMessage(0)">Bir bakış</button>
+            <button class="btn" onclick="changeMessage(1)">Bir his</button>
+            <button class="btn" onclick="changeMessage(2)">Bir gerçek</button>
+            <button class="btn" onclick="changeMessage(3)">Bir itiraf</button>
+            <button class="btn special" onclick="showFinal()">Son söz</button>
+            <button class="btn" onclick="rainHearts()">❤️</button>
+        </div>
+
+        <div class="extra-section" id="extra">
+            <p>Senin varlığın, kelimelerin yetmediği yerde bile huzur bırakıyor.</p>
+            <p>Bu satırları yazarken bile gülümsedim.</p>
+            <p style="margin-top: 25px; color: #ff8fb3;">İyi ki dünyadasın Gülsüm.</p>
         </div>
     </div>
 
     <div class="particles" id="particles"></div>
+    <div class="note">sadece senin için</div>
 
     <script>
+        // Canvas Heart
         const canvas = document.getElementById('heartCanvas');
         const ctx = canvas.getContext('2d');
-        let width, height;
+        let width, height, progress = 0;
 
         function resize() {
             width = canvas.width = window.innerWidth;
@@ -199,68 +240,112 @@
         window.addEventListener('resize', resize);
         resize();
 
-        function heartPoint(t, scale = 1) {
+        function heart(t, scale) {
             const x = 16 * Math.pow(Math.sin(t), 3);
-            const y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+            const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
             return {
                 x: width / 2 + x * scale,
                 y: height / 2 + y * scale
             };
         }
 
-        let progress = 0;
-        const speed = 0.0042;
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.07)';
+        function drawHeart() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.065)';
             ctx.fillRect(0, 0, width, height);
 
-            ctx.strokeStyle = '#5ba3ff';
-            ctx.lineWidth = 1.5;
-            ctx.shadowBlur = 15;
-            ctx.shadowColor = '#5ba3ff';
+            for (let layer = 0; layer < 5; layer++) {
+                const scale = 9.2 + layer * 1.85;
+                const alpha = 0.95 - layer * 0.13;
 
-            for (let layer = 0; layer < 4; layer++) {
-                const scale = 10.5 + layer * 1.7;
                 ctx.beginPath();
-                for (let t = 0; t < progress * Math.PI * 2; t += 0.018) {
-                    const p = heartPoint(t, scale);
+                ctx.strokeStyle = `rgba(255, 75, 130, ${alpha})`;
+                ctx.lineWidth = 1.7 - layer * 0.12;
+                ctx.shadowBlur = 18;
+                ctx.shadowColor = '#ff4d7a';
+
+                for (let t = 0; t < progress * Math.PI * 2; t += 0.014) {
+                    const p = heart(t, scale);
                     if (t === 0) ctx.moveTo(p.x, p.y);
                     else ctx.lineTo(p.x, p.y);
                 }
                 ctx.stroke();
             }
 
-            progress += speed;
+            progress += 0.0037;
 
-            if (progress < 1.35) {
-                requestAnimationFrame(draw);
+            if (progress < 1.42) {
+                requestAnimationFrame(drawHeart);
             } else {
                 setTimeout(() => {
                     canvas.classList.add('hide');
-                    document.getElementById('main').classList.add('show');
+                    document.getElementById('page').classList.add('show');
                     startParticles();
-                }, 900);
+                }, 1000);
             }
         }
 
-        draw();
+        drawHeart();
+
+        // Daha edebi mesajlar
+        const messages = [
+            "Gözlerin, bakılan her yeri biraz daha yumuşak, biraz daha yaşanılır kılıyor.",
+            "Senin yanındayken zamanın acele etmediğini, her anın kendine ait bir değeri olduğunu hissediyorum.",
+            "Bazı insanlar sadece güzel değildir; bulundukları yere de güzellik bırakırlar. Sen onlardan birisin.",
+            "Seni düşünmek, içimde hiç eksilmeyen bir sıcaklık bırakıyor. Kelimeler bazen yetmiyor, ama his yetiyor."
+        ];
+
+        function changeMessage(index) {
+            const el = document.getElementById('message');
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(12px)';
+
+            setTimeout(() => {
+                el.innerHTML = messages[index];
+                el.style.opacity = '1';
+                el.style.transform = 'translateY(0)';
+            }, 280);
+
+            document.getElementById('extra').classList.remove('visible');
+        }
+
+        function showFinal() {
+            const el = document.getElementById('message');
+            el.style.opacity = '0';
+
+            setTimeout(() => {
+                el.innerHTML = "Artık fazla söze gerek yok.";
+                el.style.opacity = '1';
+            }, 300);
+
+            setTimeout(() => {
+                document.getElementById('extra').classList.add('visible');
+            }, 700);
+        }
+
+        function rainHearts() {
+            for (let i = 0; i < 34; i++) {
+                setTimeout(() => createParticle(true), i * 50);
+            }
+        }
 
         function startParticles() {
-            const container = document.getElementById('particles');
-            const symbols = ['❤️', '✨', '💕', '💗', '✧', '🌹'];
+            setInterval(() => createParticle(false), 260);
+        }
 
-            setInterval(() => {
-                const el = document.createElement('div');
-                el.classList.add('particle');
-                el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
-                el.style.left = Math.random() * 100 + 'vw';
-                el.style.fontSize = (Math.random() * 22 + 13) + 'px';
-                el.style.animationDuration = (Math.random() * 9 + 11) + 's';
-                el.style.color = `rgba(255, ${120 + Math.random()*80}, ${150 + Math.random()*50}, 0.85)`;
-                container.appendChild(el);
-                setTimeout(() => el.remove(), 20000);
-            }, 180);
+        function createParticle(isRain = false) {
+            const container = document.getElementById('particles');
+            const symbols = isRain ? ['❤️', '💗', '💖'] : ['❤️', '✨', '💕', '✧', '💗'];
+
+            const el = document.createElement('div');
+            el.className = 'particle';
+            el.innerHTML = symbols[Math.floor(Math.random() * symbols.length)];
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.fontSize = (Math.random() * (isRain ? 22 : 18) + (isRain ? 16 : 13)) + 'px';
+            el.style.animationDuration = (Math.random() * 8 + (isRain ? 7 : 11)) + 's';
+            el.style.color = `rgba(255, ${120 + Math.random() * 80}, ${150 + Math.random() * 50}, 0.85)`;
+
+            container.appendChild(el);
+            setTimeout(() => el.remove(), 20000);
         }
     </script>
 </body>
