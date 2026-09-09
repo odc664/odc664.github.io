@@ -2,8 +2,7 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>İyi ki Doğdun Gülsüm 💗</title>
 
 <style>
@@ -19,118 +18,177 @@ html{
 
 body{
     min-height:100vh;
-    overflow-x:hidden;
-    font-family:Arial,Helvetica,sans-serif;
+    background:#09000f;
     color:white;
-    background:
-        radial-gradient(circle at 20% 20%,#4d0736 0,#17001d 30%,#08000d 70%);
+    font-family:Arial,sans-serif;
+    overflow-x:hidden;
 }
 
-/* ================= ARKA PLAN ================= */
+/* =====================================================
+   FOTOĞRAFLI ARKA PLAN
+===================================================== */
 
-body::before{
-    content:"";
+.photo-bg{
     position:fixed;
     inset:0;
-    pointer-events:none;
-    z-index:-2;
-
-    background:
-        radial-gradient(circle at 80% 30%,#7b155b33,transparent 35%),
-        radial-gradient(circle at 20% 80%,#ff2d8830,transparent 35%);
+    z-index:-10;
+    overflow:hidden;
+    background:#09000f;
 }
 
-/* ================= YAPIMCI ================= */
+.photo{
+    position:absolute;
+    width:260px;
+    height:360px;
+    object-fit:cover;
+    border-radius:25px;
+    opacity:.20;
+    filter:brightness(.65) saturate(1.2);
+    box-shadow:0 0 35px #ff3b9344;
+    animation:photoFloat 14s ease-in-out infinite alternate;
+}
+
+.photo:nth-child(1){
+    left:2%;
+    top:8%;
+    transform:rotate(-8deg);
+}
+
+.photo:nth-child(2){
+    right:2%;
+    top:12%;
+    transform:rotate(8deg);
+    animation-delay:2s;
+}
+
+.photo:nth-child(3){
+    left:5%;
+    bottom:3%;
+    transform:rotate(7deg);
+    animation-delay:4s;
+}
+
+.photo:nth-child(4){
+    right:4%;
+    bottom:5%;
+    transform:rotate(-7deg);
+    animation-delay:6s;
+}
+
+.photo:nth-child(5){
+    left:35%;
+    top:4%;
+    transform:rotate(-4deg);
+    animation-delay:8s;
+}
+
+.photo:nth-child(6){
+    right:32%;
+    bottom:2%;
+    transform:rotate(5deg);
+    animation-delay:10s;
+}
+
+@keyframes photoFloat{
+    0%{
+        transform:translateY(0) scale(1) rotate(-5deg);
+    }
+    50%{
+        transform:translateY(-18px) scale(1.04) rotate(3deg);
+    }
+    100%{
+        transform:translateY(12px) scale(1.02) rotate(-3deg);
+    }
+}
+
+/* FOTOĞRAFLARIN ÜZERİNE KOYU PERDE */
+.photo-overlay{
+    position:absolute;
+    inset:0;
+    background:
+        linear-gradient(135deg,#08000ddd,#1d001dcc,#08000dee);
+}
+
+/* =====================================================
+   YAPIMCI YAZILARI
+===================================================== */
 
 #developer-bg{
     position:fixed;
     inset:0;
-    pointer-events:none;
-    z-index:1;
+    z-index:-4;
     overflow:hidden;
+    pointer-events:none;
 }
 
 .dev{
     position:absolute;
     color:#ff8fbe;
-    font-size:15px;
     font-weight:900;
     letter-spacing:2px;
-    opacity:.25;
     white-space:nowrap;
-
+    font-size:18px;
+    opacity:.45;
     text-shadow:
         0 0 5px #ff2d88,
-        0 0 15px #ff2d88;
+        0 0 15px #ff2d88,
+        0 0 30px #ff2d88;
+    transform:rotate(-18deg);
 }
 
-/* ================= YILDIZLAR ================= */
+/* =====================================================
+   YILDIZLAR
+===================================================== */
 
 #stars{
     position:fixed;
     inset:0;
+    z-index:-3;
     pointer-events:none;
-    z-index:2;
 }
 
 .star{
     position:absolute;
     width:3px;
     height:3px;
-    border-radius:50%;
     background:white;
-    box-shadow:0 0 10px white;
+    border-radius:50%;
+    box-shadow:0 0 8px white;
     animation:blink 2s infinite alternate;
 }
 
 @keyframes blink{
-    from{
-        opacity:.15;
-        transform:scale(.7);
-    }
-    to{
-        opacity:1;
-        transform:scale(1.5);
-    }
+    from{opacity:.1}
+    to{opacity:1}
 }
 
-/* ================= GENEL BÖLÜM ================= */
+/* =====================================================
+   BÖLÜMLER
+===================================================== */
 
 section{
-    position:relative;
-    z-index:5;
     min-height:100vh;
-
     display:flex;
-    flex-direction:column;
     justify-content:center;
     align-items:center;
-
-    padding:60px 18px;
-}
-
-/* ================= HERO ================= */
-
-.hero{
+    padding:45px 18px;
     text-align:center;
 }
 
-.hero-card{
-    width:min(900px,95%);
+/* =====================================================
+   ANA KART
+===================================================== */
+
+.hero-box{
+    width:min(900px,94%);
     padding:55px 25px;
-
     border-radius:35px;
-
-    background:rgba(20,3,25,.82);
-
-    border:2px solid #ff69aa66;
-
+    background:#160817bb;
+    border:2px solid #ff69aa55;
+    backdrop-filter:blur(12px);
     box-shadow:
         0 0 30px #ff168855,
-        0 0 100px #ff168822;
-
-    backdrop-filter:blur(12px);
-
+        0 0 100px #ff168833;
     animation:appear 1.5s ease;
 }
 
@@ -139,7 +197,6 @@ section{
         opacity:0;
         transform:translateY(50px) scale(.9);
     }
-
     to{
         opacity:1;
         transform:translateY(0) scale(1);
@@ -147,41 +204,28 @@ section{
 }
 
 .cake{
-    font-size:80px;
+    font-size:75px;
     animation:bounce 1.5s infinite;
 }
 
 @keyframes bounce{
-    0%,100%{
-        transform:translateY(0);
-    }
-
-    50%{
-        transform:translateY(-15px);
-    }
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-15px)}
 }
 
 h1{
-    margin:20px 0;
-
+    margin:15px 0;
     font-size:clamp(43px,10vw,90px);
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff4f9a,
-            #ffd6e8,
-            #bd6cff,
-            #ff4f9a
-        );
-
+    background:linear-gradient(
+        90deg,
+        #ff4f9a,
+        #ffd6e8,
+        #bd6cff,
+        #ff4f9a
+    );
     background-size:300%;
-
     -webkit-background-clip:text;
-    background-clip:text;
-
     color:transparent;
-
     animation:titleGlow 5s linear infinite;
 }
 
@@ -192,37 +236,24 @@ h1{
 }
 
 .hero-text{
-    color:#ffe5f0;
     font-size:22px;
     line-height:1.7;
+    color:#ffe5f0;
 }
 
 button{
-    border:none;
-    outline:none;
-
     margin-top:30px;
     padding:17px 32px;
-
+    border:0;
     border-radius:50px;
-
     color:white;
     font-size:18px;
     font-weight:bold;
-
     cursor:pointer;
-
-    background:
-        linear-gradient(
-            90deg,
-            #ff2d88,
-            #9c3cff
-        );
-
+    background:linear-gradient(90deg,#ff2d88,#9c3cff);
     box-shadow:
         0 0 20px #ff2d8888,
         0 0 50px #9c3cff44;
-
     transition:.3s;
 }
 
@@ -230,265 +261,95 @@ button:hover{
     transform:scale(1.08);
 }
 
-.scroll{
+.scroll-down{
     margin-top:35px;
-    color:#ffc1dc;
     font-size:18px;
-    animation:scrollDown 1.5s infinite;
+    color:#ffc1dc;
+    animation:scroll 1.5s infinite;
 }
 
-.scroll span{
+.scroll-arrow{
     display:block;
+    font-size:32px;
     margin-top:5px;
-    font-size:35px;
 }
 
-@keyframes scrollDown{
+@keyframes scroll{
     0%,100%{
         transform:translateY(0);
-        opacity:.6;
+        opacity:.7;
     }
-
     50%{
         transform:translateY(10px);
         opacity:1;
     }
 }
 
-/* ==================================================
-   FOTOĞRAF GALERİSİ
-================================================== */
-
-.gallery-section{
-    min-height:auto;
-    padding-top:90px;
-    padding-bottom:100px;
-}
-
-.gallery-title{
-    text-align:center;
-    margin-bottom:45px;
-}
-
-.gallery-title h2{
-    color:#ff9bc7;
-    font-size:clamp(35px,7vw,55px);
-
-    text-shadow:
-        0 0 20px #ff2d8877;
-}
-
-.gallery-title p{
-    margin-top:12px;
-    color:#ffd9e8;
-    font-size:18px;
-}
-
-/* GALERİ */
-
-.gallery{
-    width:min(1100px,95%);
-
-    display:grid;
-
-    grid-template-columns:
-        repeat(3,1fr);
-
-    gap:25px;
-}
-
-/* FOTOĞRAF KARTI */
-
-.photo-card{
-    position:relative;
-
-    padding:10px;
-
-    border-radius:25px;
-
-    background:
-        linear-gradient(
-            145deg,
-            #ff2d8833,
-            #9c3cff33
-        );
-
-    border:1px solid #ff80b577;
-
-    box-shadow:
-        0 15px 45px #0009,
-        0 0 25px #ff2d8833;
-
-    overflow:hidden;
-
-    transition:
-        transform .4s,
-        box-shadow .4s;
-
-    animation:photoAppear 1s ease both;
-}
-
-.photo-card:hover{
-    transform:
-        translateY(-10px)
-        scale(1.025);
-
-    box-shadow:
-        0 20px 60px #000b,
-        0 0 35px #ff2d8866;
-}
-
-@keyframes photoAppear{
-    from{
-        opacity:0;
-        transform:translateY(40px);
-    }
-
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
-
-/* FOTOĞRAFIN KENDİSİ */
-
-.photo-card img{
-    display:block;
-
-    width:100%;
-    height:390px;
-
-    object-fit:cover;
-
-    border-radius:18px;
-
-    background:#150016;
-
-    transition:transform .5s;
-}
-
-.photo-card:hover img{
-    transform:scale(1.04);
-}
-
-/* FOTOĞRAF NUMARASI */
-
-.photo-number{
-    position:absolute;
-
-    left:20px;
-    top:20px;
-
-    padding:7px 12px;
-
-    border-radius:20px;
-
-    background:#0009;
-
-    color:#fff;
-
-    font-size:13px;
-    font-weight:bold;
-
-    backdrop-filter:blur(5px);
-}
-
-/* ==================================================
+/* =====================================================
    SÖZLER
-================================================== */
+===================================================== */
 
 .messages{
-    padding-top:80px;
+    flex-direction:column;
 }
 
 .messages h2{
+    font-size:clamp(35px,7vw,50px);
     color:#ff9bc7;
-
-    font-size:
-        clamp(35px,7vw,55px);
-
     margin-bottom:45px;
-
-    text-shadow:
-        0 0 20px #ff2d8877;
+    text-shadow:0 0 20px #ff2d8866;
 }
 
 .grid{
-    width:min(1000px,95%);
-
+    width:min(1000px,100%);
     display:grid;
-
-    grid-template-columns:
-        repeat(auto-fit,minmax(250px,1fr));
-
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     gap:25px;
 }
 
 .quote{
     min-height:190px;
-
     padding:30px 22px;
-
+    border-radius:25px;
     display:flex;
     justify-content:center;
     align-items:center;
-
-    text-align:center;
-
-    border-radius:25px;
-
-    background:rgba(22,8,23,.86);
-
-    border:1px solid #ff80b555;
-
-    box-shadow:
-        0 10px 40px #0008;
-
     font-size:20px;
     line-height:1.6;
-
+    background:#160817dd;
+    border:1px solid #ff80b555;
+    box-shadow:0 10px 40px #0008;
     transition:.4s;
 }
 
 .quote:hover{
-    transform:
-        translateY(-10px)
-        scale(1.02);
-
-    box-shadow:
-        0 15px 50px #ff149955;
+    transform:translateY(-10px) scale(1.02);
+    box-shadow:0 15px 50px #ff149955;
 }
 
 .special{
     grid-column:1/-1;
-
-    min-height:240px;
-
-    font-size:
-        clamp(22px,4vw,32px);
-
+    min-height:230px;
+    font-size:clamp(22px,4vw,30px);
     font-weight:bold;
-
     background:
         linear-gradient(
             135deg,
             #ff168855,
             #a52cff55
         );
-
     border:2px solid #ff76b477;
-
     box-shadow:
         0 0 35px #ff168855,
         inset 0 0 30px #ff168822;
 }
 
-/* ==================================================
+/* =====================================================
    FİNAL
-================================================== */
+===================================================== */
 
 .final{
-    text-align:center;
+    flex-direction:column;
 }
 
 .final-icon{
@@ -496,109 +357,58 @@ button:hover{
 }
 
 .final h2{
-    margin:20px;
-
-    font-size:
-        clamp(40px,8vw,70px);
-
+    font-size:clamp(40px,8vw,70px);
     color:#ff91bd;
-
-    text-shadow:
-        0 0 25px #ff2d8877;
+    margin:20px;
+    text-shadow:0 0 25px #ff2d8877;
 }
 
 .final p{
     max-width:700px;
-
-    color:#ffe5f0;
-
     font-size:21px;
     line-height:1.8;
+    color:#ffe5f0;
 }
 
-/* ==================================================
+/* =====================================================
    UÇAN KALPLER
-================================================== */
+===================================================== */
 
 .heart{
     position:fixed;
-
     bottom:-60px;
-
     pointer-events:none;
-
-    z-index:99999;
-
-    animation:
-        heartUp linear forwards;
+    z-index:10000;
+    animation:heartUp linear forwards;
 }
 
 @keyframes heartUp{
-
     to{
         transform:
             translateY(-110vh)
             rotate(360deg);
-
         opacity:0;
     }
 }
 
-/* ==================================================
-   KONFETİ
-================================================== */
-
-.confetti{
-    position:fixed;
-
-    top:-50px;
-
-    pointer-events:none;
-
-    z-index:99998;
-
-    animation:
-        confettiFall linear forwards;
-}
-
-@keyframes confettiFall{
-
-    to{
-        transform:
-            translateY(110vh)
-            rotate(1000deg);
-
-        opacity:0;
-    }
-}
-
-/* ==================================================
+/* =====================================================
    MOBİL
-================================================== */
-
-@media(max-width:800px){
-
-    .gallery{
-        grid-template-columns:
-            repeat(2,1fr);
-    }
-
-    .photo-card img{
-        height:320px;
-    }
-}
+===================================================== */
 
 @media(max-width:600px){
 
-    .gallery{
-        grid-template-columns:1fr;
+    .photo{
+        width:145px;
+        height:210px;
+        opacity:.18;
     }
 
-    .photo-card img{
-        height:430px;
+    .dev{
+        font-size:14px;
+        letter-spacing:1px;
     }
 
-    .hero-card{
+    .hero-box{
         padding:45px 18px;
     }
 
@@ -620,255 +430,132 @@ button:hover{
 
 <body>
 
-<!-- ================= YAPIMCI ================= -->
+<!-- =====================================================
+     FOTOĞRAFLAR
+===================================================== -->
+
+<div class="photo-bg">
+
+    <img class="photo"
+    src="IMG_20260820_154912.jpg">
+
+    <img class="photo"
+    src="Screenshot_2026-08-21-16-26-52-456_com.instagram.android.jpg">
+
+    <img class="photo"
+    src="Screenshot_2026-08-21-16-26-57-060_com.instagram.android.jpg">
+
+    <img class="photo"
+    src="Screenshot_2026-08-21-16-26-59-804_com.instagram.android.jpg">
+
+    <img class="photo"
+    src="Screenshot_2026-08-21-17-35-09-977_com.instagram.android.jpg">
+
+    <img class="photo"
+    src="Screenshot_2026-08-21-17-35-13-244_com.instagram.android.jpg">
+
+    <div class="photo-overlay"></div>
+
+</div>
+
+
+<!-- YAPIMCI -->
 
 <div id="developer-bg"></div>
 
-<!-- ================= YILDIZLAR ================= -->
+
+<!-- YILDIZLAR -->
 
 <div id="stars"></div>
 
 
-<!-- ==================================================
+<!-- =====================================================
      AÇILIŞ
-================================================== -->
+===================================================== -->
 
-<section class="hero">
+<section>
 
-    <div class="hero-card">
+<div class="hero-box">
 
-        <div class="cake">
-            🎂
-        </div>
+    <div class="cake">🎂</div>
 
-        <h1>
-            İyi ki Doğdun<br>
-            Gülsüm! 💗
-        </h1>
+    <h1>
+        İyi ki Doğdun<br>
+        Gülsüm! 💗
+    </h1>
 
-        <p class="hero-text">
-            Bugün sıradan bir gün değil... ✨<br>
-            Çünkü bugün senin doğduğun gün! 🌸
-        </p>
+    <p class="hero-text">
+        Bugün sıradan bir gün değil... ✨<br>
+        Çünkü bugün senin doğduğun gün! 🌸
+    </p>
 
-        <button onclick="celebrate()">
-            🎉 KUTLAMAYI BAŞLAT 🎉
-        </button>
+    <button onclick="celebrate()">
+        🎉 KUTLAMAYI BAŞLAT 🎉
+    </button>
 
-        <div class="scroll">
-            Devamı için aşağı kaydır
-            <span>↓</span>
-        </div>
-
+    <div class="scroll-down">
+        Devamı için aşağı kaydır
+        <span class="scroll-arrow">↓</span>
     </div>
+
+</div>
 
 </section>
 
 
-<!-- ==================================================
-     FOTOĞRAFLAR
-================================================== -->
-
-<section class="gallery-section">
-
-    <div class="gallery-title">
-
-        <h2>
-            📸 Güzel Anılar
-        </h2>
-
-        <p>
-            Senin için hazırlanan küçük bir fotoğraf köşesi 💗
-        </p>
-
-    </div>
-
-
-    <div class="gallery">
-
-
-        <!-- FOTOĞRAF 1 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 01
-            </div>
-
-            <img
-                src="./IMG_20260820_154912.jpg"
-                alt="Gülsüm fotoğrafı 1"
-                loading="eager"
-            >
-
-        </div>
-
-
-        <!-- FOTOĞRAF 2 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 02
-            </div>
-
-            <img
-                src="./Screenshot_2026-08-21-16-26-52-456_com.instagram.android.jpg"
-                alt="Gülsüm fotoğrafı 2"
-                loading="eager"
-            >
-
-        </div>
-
-
-        <!-- FOTOĞRAF 3 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 03
-            </div>
-
-            <img
-                src="./Screenshot_2026-08-21-16-26-57-060_com.instagram.android.jpg"
-                alt="Gülsüm fotoğrafı 3"
-                loading="eager"
-            >
-
-        </div>
-
-
-        <!-- FOTOĞRAF 4 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 04
-            </div>
-
-            <img
-                src="./Screenshot_2026-08-21-16-26-59-804_com.instagram.android.jpg"
-                alt="Gülsüm fotoğrafı 4"
-                loading="eager"
-            >
-
-        </div>
-
-
-        <!-- FOTOĞRAF 5 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 05
-            </div>
-
-            <img
-                src="./Screenshot_2026-08-21-17-35-09-977_com.instagram.android.jpg"
-                alt="Gülsüm fotoğrafı 5"
-                loading="eager"
-            >
-
-        </div>
-
-
-        <!-- FOTOĞRAF 6 -->
-
-        <div class="photo-card">
-
-            <div class="photo-number">
-                FOTOĞRAF 06
-            </div>
-
-            <img
-                src="./Screenshot_2026-08-21-17-35-13-244_com.instagram.android.jpg"
-                alt="Gülsüm fotoğrafı 6"
-                loading="eager"
-            >
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- ==================================================
+<!-- =====================================================
      SÖZLER
-================================================== -->
+===================================================== -->
 
 <section class="messages">
 
-    <h2>
-        💌 Gülsüm İçin Birkaç Söz
-    </h2>
+<h2>💌 Gülsüm İçin Birkaç Söz</h2>
 
+<div class="grid">
 
-    <div class="grid">
-
-        <div class="quote special">
-
-            🌸 “Güneş her gün doğar ama senin gibi
-            çiçekler yılda bir açar.” 🌸
-
-        </div>
-
-
-        <div class="quote">
-
-            ✨ Yeni yaşın, kalbin kadar güzel
-            anılarla dolsun.
-
-        </div>
-
-
-        <div class="quote">
-
-            💗 Her gülüşün dünyayı biraz daha
-            güzelleştirsin.
-
-        </div>
-
-
-        <div class="quote">
-
-            🌙 Dilediğin bütün güzel şeyler
-            birer birer gerçek olsun.
-
-        </div>
-
-
-        <div class="quote">
-
-            🦋 Yeni yaşında yepyeni mutluluklar
-            seni bulsun.
-
-        </div>
-
-
-        <div class="quote">
-
-            🎀 Bugün senin günün.
-            Bol bol gülümse!
-
-        </div>
-
-
-        <div class="quote">
-
-            ⭐ Umarım bu yeni yaşın,
-            unutamayacağın güzelliklerle dolu olur.
-
-        </div>
-
+    <div class="quote special">
+        🌸 “Güneş her gün doğar ama senin gibi
+        çiçekler yılda bir açar.” 🌸
     </div>
+
+    <div class="quote">
+        ✨ Yeni yaşın, kalbin kadar güzel
+        anılarla dolsun.
+    </div>
+
+    <div class="quote">
+        💗 Her gülüşün dünyayı biraz daha
+        güzelleştirsin.
+    </div>
+
+    <div class="quote">
+        🌙 Dilediğin bütün güzel şeyler
+        birer birer gerçek olsun.
+    </div>
+
+    <div class="quote">
+        🦋 Yeni yaşında yepyeni mutluluklar
+        seni bulsun.
+    </div>
+
+    <div class="quote">
+        🎀 Bugün senin günün.
+        Bol bol gülümse!
+    </div>
+
+    <div class="quote">
+        ⭐ Umarım bu yeni yaşın,
+        unutamayacağın güzelliklerle dolu olur.
+    </div>
+
+</div>
 
 </section>
 
 
-<!-- ==================================================
+<!-- =====================================================
      FİNAL
-================================================== -->
+===================================================== -->
 
 <section class="final">
 
@@ -881,17 +568,13 @@ button:hover{
     </h2>
 
     <p>
-
         Yeni yaşın sana mutluluk, huzur,
         kahkaha ve birbirinden güzel anılar
         getirsin.
-
         <br><br>
-
         <b>
             Doğum günün kutlu olsun! 🎉💗
         </b>
-
     </p>
 
     <button onclick="celebrate()">
@@ -903,66 +586,65 @@ button:hover{
 
 <script>
 
-/* ==================================================
-   YAPIMCI YAZILARI
-================================================== */
+/* =====================================================
+   YAPIMCI: ODÇ664
+===================================================== */
 
 const developerBg =
     document.getElementById("developer-bg");
 
-for(let i=0;i<70;i++){
+for(let i=0;i<65;i++){
 
     const dev =
         document.createElement("div");
 
     dev.className="dev";
 
-    dev.textContent=
-        "YAPIMCI: ODÇ664";
+    dev.textContent="YAPIMCI: ODÇ664";
 
     dev.style.left=
-        (Math.random()*105-2)+"%";
+        (Math.random()*110-5)+"%";
 
     dev.style.top=
-        (Math.random()*105-2)+"%";
+        (Math.random()*110-5)+"%";
 
     dev.style.fontSize=
-        (13+Math.random()*9)+"px";
+        (14+Math.random()*10)+"px";
 
     developerBg.appendChild(dev);
 }
 
 
-/* ==================================================
+/* =====================================================
    YILDIZLAR
-================================================== */
+===================================================== */
 
-const stars =
+const stars=
     document.getElementById("stars");
 
-for(let i=0;i<140;i++){
+for(let i=0;i<130;i++){
 
-    const star =
+    const star=
         document.createElement("div");
 
     star.className="star";
 
-    star.style.left =
+    star.style.left=
         Math.random()*100+"%";
 
-    star.style.top =
+    star.style.top=
         Math.random()*100+"%";
 
-    star.style.animationDelay =
+    star.style.animationDelay=
         Math.random()*3+"s";
 
     stars.appendChild(star);
 }
 
 
-/* ==================================================
+/* =====================================================
    KUTLAMA
-================================================== */
+===================================================== */
 
 function celebrate(){
 
@@ -982,48 +664,77 @@ function celebrate(){
 
     /* KONFETİ */
 
-    for(let i=0;i<180;i++){
+    for(let i=0;i<200;i++){
 
         setTimeout(()=>{
 
-            const item =
+            const confetti=
                 document.createElement("div");
 
-            item.className="confetti";
-
-            item.textContent =
+            confetti.textContent=
                 emojis[
                     Math.floor(
                         Math.random()*emojis.length
                     )
                 ];
 
-            item.style.left =
+            confetti.style.position="fixed";
+            confetti.style.left=
                 Math.random()*100+"vw";
 
-            item.style.fontSize =
+            confetti.style.top="-40px";
+
+            confetti.style.fontSize=
                 (15+Math.random()*28)+"px";
 
-            item.style.animationDuration =
-                (2+Math.random()*3)+"s";
+            confetti.style.zIndex="9999";
+            confetti.style.pointerEvents="none";
 
-            document.body.appendChild(item);
+            document.body.appendChild(confetti);
 
-            setTimeout(()=>{
-                item.remove();
-            },5500);
+            const animation=
+                confetti.animate(
 
-        },i*12);
+                [
+                    {
+                        transform:
+                            "translateY(0) rotate(0deg)",
+                        opacity:1
+                    },
+                    {
+                        transform:
+                            "translateY(110vh) rotate("+
+                            Math.random()*1200+
+                            "deg)",
+                        opacity:.1
+                    }
+                ],
+
+                {
+                    duration:
+                        1800+
+                        Math.random()*3000,
+
+                    easing:
+                        "cubic-bezier(.2,.7,.3,1)"
+                });
+
+            animation.onfinish=()=>{
+                confetti.remove();
+            };
+
+        },i*10);
+
     }
 
 
     /* KALPLER */
 
-    for(let i=0;i<45;i++){
+    for(let i=0;i<40;i++){
 
         setTimeout(()=>{
 
-            const heart =
+            const heart=
                 document.createElement("div");
 
             heart.className="heart";
@@ -1037,41 +748,40 @@ function celebrate(){
                 "🌸",
                 "✨"
             ][
-                Math.floor(
-                    Math.random()*7
-                )
+                Math.floor(Math.random()*7)
             ];
 
-            heart.style.left =
+            heart.style.left=
                 Math.random()*100+"vw";
 
-            heart.style.fontSize =
+            heart.style.fontSize=
                 (20+Math.random()*30)+"px";
 
-            heart.style.animationDuration =
+            heart.style.animationDuration=
                 (3+Math.random()*3)+"s";
 
             document.body.appendChild(heart);
 
             setTimeout(()=>{
                 heart.remove();
-            },7000);
+            },6500);
 
         },i*70);
+
     }
 
 }
 
 
-/* ==================================================
-   SAYFA AÇILINCA KUTLAMA
-================================================== */
+/* =====================================================
+   SAYFA AÇILIR AÇILMAZ KUTLAMA
+===================================================== */
 
 window.addEventListener("load",()=>{
 
     setTimeout(()=>{
         celebrate();
-    },700);
+    },500);
 
 });
 
